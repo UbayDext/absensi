@@ -28,60 +28,22 @@ class DescriptionScreen1 extends StatelessWidget {
                   const Text(
                     'Easy way to record student\nattendance at school',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black54,
-                    ),
+                    style: TextStyle(fontSize: 14, color: Colors.black54),
                   ),
                   const SizedBox(height: 24),
-                  
+
                   Image.asset(
-                    'assets/image/logo2.png',// ini error ketika nama file di ubah
+                    'assets/image/logo2.png', // ini error ketika nama file di ubah
                     height: 250,
                   ),
                   const SizedBox(height: 24),
-                 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 8,
-                        width: 24,
-                        decoration: BoxDecoration(
-                          color: Warna.midColor,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Container(
-                        height: 8,
-                        width: 8,
-                        decoration: BoxDecoration(
-                          color: Warna.waitColor,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Container(
-                        height: 8,
-                        width: 8,
-                        decoration: BoxDecoration(
-                          color: Warna.waitColor,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                    ],
-                  ),
                 ],
               ),
               Column(
                 children: [
                   const Text(
                     'Mark Attendence',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                   const SizedBox(height: 8),
                   const Text(
@@ -90,7 +52,7 @@ class DescriptionScreen1 extends StatelessWidget {
                     style: TextStyle(color: Colors.black54),
                   ),
                   const SizedBox(height: 24),
-                 
+
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
@@ -111,7 +73,7 @@ class DescriptionScreen1 extends StatelessWidget {
                     ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),

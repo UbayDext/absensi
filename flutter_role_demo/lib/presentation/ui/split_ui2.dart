@@ -1,8 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_role_demo/widget/warna.dart';
-import 'package:flutter_svg/svg.dart';
+
 
 class SplitUi2 extends StatefulWidget {
   SplitUi2({super.key});

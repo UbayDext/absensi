@@ -1,25 +1,32 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+import 'package:flutter_role_demo/Model/kelas_add/kelas_add.dart';
+
+
 
 class DataSiswaKelasState extends Equatable {
-  const DataSiswaKelasState({
-    this.siswa = const [],
-    this.statusSiswa = const {}
-    });
+  final List<KelasAdd> daftarSiswa;
+  final bool isLoading;
+  final String isError;
 
-  final List<String> siswa;
-  final Map<String, bool?> statusSiswa;
+  const DataSiswaKelasState({
+    this.daftarSiswa = const [],
+    this.isLoading = false,
+    this.isError = '',
+  });
 
   @override
-  List<Object> get props => [siswa, statusSiswa];
+  List<Object> get props => [daftarSiswa, isLoading, isError];
 
   DataSiswaKelasState copyWith({
-    List<String>? siswa,
-    Map<String, bool?>? statusSiswa,
+    List<KelasAdd>? daftarSiswa,
+    bool? isLoading,
+    String? isError,
   }) {
     return DataSiswaKelasState(
-      siswa: siswa ?? this.siswa,
-      statusSiswa: statusSiswa ?? this.statusSiswa,
+      daftarSiswa: daftarSiswa ?? this.daftarSiswa,
+      isLoading: isLoading ?? this.isLoading,
+      isError: isError ?? this.isError,
     );
   }
 }

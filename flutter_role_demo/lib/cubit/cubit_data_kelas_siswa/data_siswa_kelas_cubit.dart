@@ -1,40 +1,33 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_role_demo/Model/kelas_add/kelas_add.dart';
+
 import 'package:flutter_role_demo/cubit/cubit_data_kelas_siswa/data_siswa_kelas_state.dart';
+import 'package:flutter_role_demo/data/service/crud_kelas_service.dart';
 
 class DataSiswaKelasCubit extends Cubit<DataSiswaKelasState> {
-  DataSiswaKelasCubit() : super(DataSiswaKelasState());
+  DataSiswaKelasCubit() : super(const DataSiswaKelasState());
 
-  // Di dalam DataSiswaKelasCubit
-void tambahSiswa(String namaSiswa) {
-  final newSiswa = List<String>.from(state.siswa)..add(namaSiswa);
-  final newStatusSiswa = Map<String, bool?>.from(state.statusSiswa)
-    ..[namaSiswa] = null;
+  Future<KelasAdd?> tambahSiswa(String name) async {
+    emit(state.copyWith(isLoading: true));
 
-  emit(state.copyWith(
-    siswa: newSiswa,
-    statusSiswa: newStatusSiswa,
-  ));
-}
+    final add = await CrudKelasService().addKelas(name: name);
 
-  void deleteSiswa(int index){
-    emit(state.copyWith(siswa: List.from(state.siswa)..removeAt(index),
-    ),
+    return add.fold(
+      (left) {
+        emit(state.copyWith(isError: left, isLoading: false));
+        return null;
+      },
+      (right) {
+        final updatedList = List<KelasAdd>.from(state.daftarSiswa)..add(right);
+        emit(
+          state.copyWith(
+            daftarSiswa: updatedList,
+            isLoading: false,
+            isError: '',
+          ),
+        );
+        return right; // ✅ return objek
+      },
     );
   }
-
-  void editSiswa(int index, String siswaBaru){
-    final newSiswa = List<String>.from(state.siswa);
-    newSiswa[index] = siswaBaru;
-    emit(state.copyWith(siswa: newSiswa));
-  }
-
-   void toggleStatus(String namaSiswa) {
-    final current = (state.statusSiswa)[namaSiswa];
-    bool? next = current == null ? true : current == true ? false : null;
-
-    final newMap = Map<String, bool?>.from(state.statusSiswa)
-      ..[namaSiswa] = next;
-    emit(state.copyWith(statusSiswa: newMap));
-  }
-
 }

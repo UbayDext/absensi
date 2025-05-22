@@ -24,9 +24,6 @@ class _MainUiState extends State<MainUi> {
                 title: Image.asset('assets/image/logo_appbar.png'),
               )
               : null,
-      drawer: Drawer(
-        child: Column(children: [const DrawerHeader(child: Text('data'))]),
-      ),
       body: listofContect[conditionsState],
       backgroundColor: Warna.trueColor,
       bottomNavigationBar: BottomNavigationBar(
@@ -38,6 +35,8 @@ class _MainUiState extends State<MainUi> {
           });
         },
         type: BottomNavigationBarType.fixed,
+        showUnselectedLabels: false,
+        showSelectedLabels: true,
         selectedItemColor: Warna.midColor,
         unselectedItemColor: Warna.TextColor,
         items: [

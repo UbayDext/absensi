@@ -40,38 +40,6 @@ class DescriptionScreen3 extends StatelessWidget {
                     height: 250,
                   ),
                   const SizedBox(height: 24),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 8,
-                        width: 8,
-                        decoration: BoxDecoration(
-                          color: Warna.waitColor,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Container(
-                        height: 8,
-                        width: 8,
-                        decoration: BoxDecoration(
-                          color: Warna.waitColor,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Container(
-                        height: 8,
-                        width: 24,
-                        decoration: BoxDecoration(
-                          color: Warna.midColor,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      ),
-                    ],
-                  ),
                 ],
               ),
               Column(
@@ -100,7 +68,10 @@ class DescriptionScreen3 extends StatelessWidget {
                                   context.read<SelectedCubit>().toogleStatus(
                                     'login',
                                   );
-                                  Navigator.pushReplacementNamed(context, '/role');
+                                  Navigator.pushReplacementNamed(
+                                    context,
+                                    '/role',
+                                  );
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor:
@@ -131,7 +102,10 @@ class DescriptionScreen3 extends StatelessWidget {
                                   context.read<SelectedCubit>().toogleStatus(
                                     'signup',
                                   );
-                                  Navigator.pushReplacementNamed(context, '/register');
+                                  Navigator.pushReplacementNamed(
+                                    context,
+                                    '/register',
+                                  );
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor:
