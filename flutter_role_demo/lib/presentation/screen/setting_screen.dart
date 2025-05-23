@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_role_demo/cubit/cubit_logout/logout_cubit.dart';
 import 'package:flutter_role_demo/cubit/cubit_logout/logout_state.dart';
 import 'package:flutter_role_demo/data/local_storange/local_storange.dart';
+import 'package:flutter_role_demo/Model/login/user.dart';
 import 'package:flutter_role_demo/widget/warna.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -14,6 +15,32 @@ class SettingScreen extends StatefulWidget {
 
 class _SettingScreenState extends State<SettingScreen> {
   bool isDarkMode = false;
+  User? user;
+
+  @override
+  void initState() {
+    super.initState();
+    getUserInfo();
+  }
+
+  void getUserInfo() {
+    final storedUser = LocalStorage().getUser();
+    if (storedUser != null) {
+      setState(() {
+        user = storedUser;
+      });
+    }
+  }
+
+  String _getInitial(String name) {
+    if (name.trim().isEmpty) return '?';
+    List<String> parts = name.trim().split(' ');
+    if (parts.length == 1) {
+      return parts[0][0].toUpperCase();
+    } else {
+      return (parts[0][0] + parts[1][0]).toUpperCase();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,25 +55,33 @@ class _SettingScreenState extends State<SettingScreen> {
             decoration: const BoxDecoration(color: Warna.trueColor),
             child: Row(
               children: [
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 40,
-                  backgroundImage: AssetImage('assets/image/logo1.png'),
+                  backgroundColor: Colors.white,
+                  child: Text(
+                    _getInitial(user?.name ?? ''),
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
                 ),
                 const SizedBox(width: 16),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Text(
-                      'Aisyah',
-                      style: TextStyle(
+                      user?.name ?? 'Loading...',
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      'aisyahaprilia123@gmail.com',
-                      style: TextStyle(color: Colors.black54),
+                      user?.email ?? '',
+                      style: const TextStyle(color: Colors.black54),
                     ),
                   ],
                 ),
@@ -63,7 +98,9 @@ class _SettingScreenState extends State<SettingScreen> {
                     width: 24,
                   ),
                   title: const Text('Edit Profile'),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, '/profile');
+                  },
                 ),
                 ListTile(
                   leading: Image.asset(
@@ -103,23 +140,19 @@ class _SettingScreenState extends State<SettingScreen> {
                     if (state.isSucces) {
                       Navigator.pushReplacementNamed(context, '/home');
                     } else if (state.error.isNotEmpty) {
-                      ScaffoldMessenger.of(
-                        context,
-                      ).showSnackBar(SnackBar(content: Text(state.error)));
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(SnackBar(content: Text(state.error)));
                     }
                   },
                   builder: (context, state) {
                     return ListTile(
-                      leading: Icon(Icons.logout),
-                      title: Text('Logout'),
+                      leading: const Icon(Icons.logout),
+                      title: const Text('Logout'),
                       onTap: () async {
                         final token = await LocalStorage().getToken();
-                        print('TOKEN DITEMUKAN: $token');
-
                         if (token != null && token.isNotEmpty) {
                           context.read<LogoutCubit>().logout(token);
                         } else {
-                          print('TOKEN KOSONG / NULL');
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('Token tidak ditemukan'),
@@ -127,9 +160,8 @@ class _SettingScreenState extends State<SettingScreen> {
                           );
                         }
                       },
-
                       trailing:
-                          state.isLogout ? CircularProgressIndicator() : null,
+                          state.isLogout ? const CircularProgressIndicator() : null,
                     );
                   },
                 ),

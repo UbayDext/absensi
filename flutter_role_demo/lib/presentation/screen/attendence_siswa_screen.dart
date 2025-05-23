@@ -38,7 +38,7 @@ class _AttendenceSiswaScreenState extends State<AttendenceSiswaScreen> {
   Widget build(BuildContext context) {
     final kelasState = context.watch<GetDataKelasCubit>().state;
     final classroom = kelasState.classData.firstWhere(
-      (c) => c.name == widget.namaKelas,
+      (c) => c.name == widget.namaKelas,// validations chek
       orElse: () => KelasGet(id: 0, name: '-'),
     );
 
@@ -226,7 +226,7 @@ class _AttendenceSiswaScreenState extends State<AttendenceSiswaScreen> {
                 TextButton(
                   onPressed: () async {
                     await context.read<PostMapelCubit>().addMapelStud(
-                          _addController.text.trim(),
+                          _addController.text.trim(),// 
                           classroom.id!,
                         );
                     if (mounted) {

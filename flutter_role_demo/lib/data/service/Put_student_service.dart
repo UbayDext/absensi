@@ -24,7 +24,7 @@ class PutStudentService {
     );
   }
 
-  Future<Either<String, PutStudend>> upadteStudent({
+  Future<Either<String, PutStudend>> upadtestudent({
     required int id,
     required String name,
     required String status,

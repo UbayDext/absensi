@@ -14,7 +14,7 @@ class PostPelajaranService {
 
   PostPelajaranService() {
     Mapel.interceptors.add(
-      LogInterceptor(
+      LogInterceptor( // print data
         request: true,
         requestHeader: true,
         requestBody: true,

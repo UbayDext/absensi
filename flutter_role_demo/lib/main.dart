@@ -11,6 +11,8 @@ import 'package:flutter_role_demo/cubit/cubit_get_studen/get_studen_cubit.dart';
 import 'package:flutter_role_demo/cubit/cubit_logout/logout_cubit.dart';
 import 'package:flutter_role_demo/cubit/cubit_post_studensStatus/post_studens_status_cubit.dart';
 import 'package:flutter_role_demo/cubit/cubit_put_mapel/put_mapel_cubit.dart';
+import 'package:flutter_role_demo/cubit/cubit_put_profile/put_profile_cubit.dart';
+import 'package:flutter_role_demo/cubit/cubit_put_status/put_status_cubit.dart';
 import 'package:flutter_role_demo/cubit/cubit_register/register_cubit.dart';
 import 'package:flutter_role_demo/cubit/cubit_selected/selected_cubit.dart';
 import 'package:flutter_role_demo/cubit/cubit_update_class/update_class_cubit.dart';
@@ -18,15 +20,17 @@ import 'package:flutter_role_demo/data/local_storange/local_storange.dart';
 import 'package:flutter_role_demo/data/service/Get_mapel_service.dart';
 import 'package:flutter_role_demo/data/service/Get_student_service.dart';
 import 'package:flutter_role_demo/data/service/Post_student_service.dart';
-
 import 'package:flutter_role_demo/data/service/Put_mapel_service.dart';
+import 'package:flutter_role_demo/data/service/Put_profile_service.dart';
 import 'package:flutter_role_demo/data/service/get_kelas_service.dart';
+import 'package:flutter_role_demo/data/service/put_student_service.dart';
 import 'package:flutter_role_demo/presentation/screen/attendence_screen.dart';
 import 'package:flutter_role_demo/presentation/screen/attendence_siswa_screen.dart';
 
 import 'package:flutter_role_demo/presentation/screen/description_screen1.dart';
 import 'package:flutter_role_demo/presentation/screen/description_screen2.dart';
 import 'package:flutter_role_demo/presentation/screen/description_screen3.dart';
+import 'package:flutter_role_demo/presentation/screen/profile_screen.dart';
 import 'package:flutter_role_demo/presentation/screen/register_screen.dart';
 import 'package:flutter_role_demo/presentation/screen/role_screen.dart';
 import 'package:flutter_role_demo/presentation/ui/main_ui.dart';
@@ -81,6 +85,8 @@ class MyApp extends StatelessWidget {
                     ..getAllStudent(),
         ),
         BlocProvider(create: (_) => PostStudensStatusCubit(service: PostStudentService())),
+        BlocProvider(create: (_) => PutStudensStatusCubit(service: PutStudentService())),
+        BlocProvider(create: (_) => PutProfileCubit(service: PutProfileService())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -99,6 +105,7 @@ class MyApp extends StatelessWidget {
           '/absenkelas':
               (context) =>
                   AttendenceSiswaScreen(namaKelas: '', tanggal: DateTime.now()),
+          '/profile': (context) => ProfileScreen(),
         },
       ),
     );

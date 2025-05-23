@@ -14,12 +14,24 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   User? user;
-  @override
 
+  @override
   void initState() {
     super.initState();
     user = LocalStorage().getUser();
   }
+
+  String _getInitial(String name) {
+    if (name.trim().isEmpty) return '?';
+    List<String> parts = name.trim().split(' ');
+    if (parts.length == 1) {
+      return parts[0][0].toUpperCase();
+    } else {
+      return (parts[0][0] + parts[1][0]).toUpperCase();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Warna.BgColor,
@@ -35,9 +47,17 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               child: Row(
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 40,
-                    backgroundImage: AssetImage('assets/image/logo1.png'),
+                    backgroundColor: Colors.white,
+                    child: Text(
+                      _getInitial(user?.name ?? ''),
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -46,16 +66,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Text(
                           'Hi, ${user?.name ?? 'User'}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
                         Text('Email: ${user?.email ?? '-'}'),
                         Text('Role: ${user?.role ?? '-'}'),
                         Text('ID: ${user?.id ?? '-'}'),
-                        Text('Joined: ${user?.createdAt?.toLocal().toString().split("")[0] ?? '-'}'),
+                        Text(
+                          'Joined: ${user?.createdAt?.toLocal().toString().split('T')[0] ?? '-'}',
+                        ),
                       ],
                     ),
                   ),

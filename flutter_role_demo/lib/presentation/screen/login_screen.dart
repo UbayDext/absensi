@@ -44,7 +44,7 @@ class _LoginContentState extends State<_LoginContent> {
     return BlocListener<LoginCubit, LoginState>(
       listenWhen: (prev, curr) => prev != curr,
       listener: (context, state) {
-        if (state.loginResponse.message != null &&
+        if (state.loginResponse.message != null &&// chek and harus chek == 
             state.loginResponse.message!.isNotEmpty) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -84,8 +84,8 @@ class _LoginContentState extends State<_LoginContent> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
-                    validator: (v) {
-                      if (v == null || v.isEmpty) return 'Email is required';
+                    validator: (v) { // must
+                      if (v == null || v.isEmpty) return 'Email is required';// but 1 conditions true do somethink
                       if (!v.contains('@')) return 'Invalid email format';
                       return null;
                     },
